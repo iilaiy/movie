@@ -1,20 +1,53 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: () => import("@/views/HomeFilm"),
+    meta: {},
+    children: [
+      {
+        path: "",
+        name: "heatReflection",
+        component: () => import("@/views/HeatReflection"),
+      },
+      {
+        path: "/cinema",
+        name: "cinema",
+        component: () => import("@/views/CinemaFilm"),
+      },
+      {
+        path: "/stay",
+        name: "stay",
+        component: () => import("@/views/StayFilm"),
+      },
+      {
+        path: "/classic",
+        name: "classic",
+        component: () => import("@/views/ClassicFilm"),
+      },
+    ],
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/hot",
+    name: "hot",
+    component: () => import("@/views/HotFilm"),
+  },
+  {
+    path: "/mine",
+    name: "mine",
+    component: () => import("@/views/MineFilm"),
+  },
+  {
+    path: "/city",
+    name: "city",
+    component: () => import("@/views/LocationCity"),
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "error",
+    component: () => import("@/views/NotFound"),
   },
 ];
 

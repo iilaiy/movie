@@ -1,0 +1,26 @@
+.area, .search {
+    display: flex;
+    align-items: center;
+}
+.area {
+    padding-left: .3rem;
+    span {
+        font-size: .38rem;
+        color: #666666;
+    }
+    i {
+        color: #b0b0b0;
+    }
+}
+.search {
+    padding-right: .3rem;
+    padding-left: .3rem;
+    i {
+        font-size: .6rem;
+        color: $theme-bg-color;
+    }
+}
+
+.content {
+    margin-bottom: var(--van-tabbar-height);
+}
