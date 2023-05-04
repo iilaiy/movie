@@ -18,7 +18,14 @@
           </div>
         </template>
         <template #right>
-          <div class="right">
+          <!-- 确保 item.showStateButton 存在且不是一个空对象 -->
+          <div
+            class="right"
+            v-if="
+              item.showStateButton &&
+              !(JSON.stringify(item.showStateButton) == '{}')
+            "
+          >
             <div class="btn">
               <button :style="{ background: item.showStateButton.color }">
                 {{ item.showStateButton.content }}
@@ -47,7 +54,7 @@ const hotFilm = reactive([]);
 const getHotFilmHandler = async () => {
   try {
     const res = await getHotFilm({ ct: "广州" });
-    console.log(res);
+    // console.log(res);
     res.data.hot.map((item) => hotFilm.push(item));
     movieIds.value = res.data.movieIds;
   } catch (err) {
@@ -81,17 +88,23 @@ const heatReflection = ref(null);
 // 触底加载更多
 const lazyLoading = async () => {
   // // 滚动到底部，再加载的处理事件
-  const scrollTop = heatReflection.value.scrollTop;
-  const clientHeight = heatReflection.value.clientHeight;
-  const scrollHeight = heatReflection.value.scrollHeight;
-  if (scrollHeight - clientHeight === scrollTop && loading.show === false) {
+  const scrollTop =
+    document.documentElement.scrollTop || document.body.scrollTop;
+  const clientHeight = document.documentElement.clientHeight;
+  const scrollHeight = document.documentElement.scrollHeight;
+  if (scrollHeight - clientHeight == scrollTop && loading.show == false) {
+    // console.log('触底啦~');
     loading.show = true;
     try {
       const res = await getHitBottomHotFilm({
         movieIds: pseudoPaging(),
       });
-      console.log(res);
-      // TODO: 当没有数据返回时提示用户已经没有数据可加载了
+      // console.log(res);
+      if (res.coming.length === 0) {
+        loading.size = "0px";
+        loading.text = "到底啦，别巴拉了";
+        return;
+      }
       res.coming.map((item) => hotFilm.push(item));
       loading.show = false;
     } catch (error) {
@@ -101,11 +114,11 @@ const lazyLoading = async () => {
 };
 
 onMounted(() => {
-  heatReflection.value.addEventListener("scroll", lazyLoading, false);
+  window.addEventListener("scroll", lazyLoading, false);
 });
 
 onBeforeUnmount(() => {
-  heatReflection.value.removeEventListener("scroll", lazyLoading, false);
+  window.removeEventListener("scroll", lazyLoading, false);
 });
 </script>
 

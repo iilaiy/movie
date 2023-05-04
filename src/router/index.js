@@ -45,6 +45,11 @@ const routes = [
     component: () => import("@/views/LocationCity"),
   },
   {
+    path: "/search",
+    name: "search",
+    component: () => import("@/views/SearchFilm"),
+  },
+  {
     path: "/:catchAll(.*)",
     name: "error",
     component: () => import("@/views/NotFound"),

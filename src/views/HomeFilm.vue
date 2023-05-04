@@ -21,9 +21,9 @@
       </van-tab>
       <template #nav-right>
         <!-- 搜索 -->
-        <div class="search">
+        <router-link class="search" to="/search">
           <i class="iconfont icon-sousuo"></i>
-        </div>
+        </router-link>
       </template>
     </van-tabs>
     <!-- 内容 -->
@@ -62,15 +62,13 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variable.scss";
 @import "@/assets/css/home/home-film.scss";
-:deep(.van-nav-bar) {
-  .van-nav-bar__content {
-    background-color: $theme-bg-color;
-    .van-nav-bar__title {
-      font-weight: normal;
-      color: #ffffff;
-    }
+
+:deep(.van-nav-bar__content) {
+  background-color: $theme-bg-color;
+  .van-nav-bar__title {
+    font-weight: normal;
+    color: #ffffff;
   }
 }
 :deep(.van-tabs) {
