@@ -44,3 +44,13 @@ export function getHitBottomHotFilm(params = {}) {
     method: "get",
   });
 }
+
+/**
+ * 获取定位城市
+ */
+export function getPositionCity() {
+  return request({
+    url: '/bmap/v3/ip?key=bd188f50c39f56e83fc4429eaf14024b',
+    method: "get",
+  })
+}

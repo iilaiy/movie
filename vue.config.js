@@ -11,6 +11,8 @@ module.exports = defineConfig({
         resolvers: [VantResolver()],
       }),
     ],
+    externals: {
+    },
   },
   devServer: {
     proxy: {
@@ -21,6 +23,13 @@ module.exports = defineConfig({
           "^/api": "",
         },
       },
+      "/bmap": {
+        target: "https://restapi.amap.com",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/bmap": "",
+        },
+      }
     },
   },
 });

@@ -21,9 +21,9 @@
 
 <script setup>
 import CityBar from "@/components/CityBar";
-
 import { ref } from "vue";
-import { getCity } from "@/api/api";
+import { getCity, getPositionCity } from "@/api/api";
+// const { proxy } = getCurrentInstance();
 
 // 所有城市
 const cityList = ref([]);
@@ -41,6 +41,16 @@ const getCityHandler = async () => {
   }
 };
 getCityHandler();
+
+const getPositionCityHandler = async () => {
+  try {
+    const res = await getPositionCity()
+    console.log(res);
+  } catch(error) {
+    console.log(error);
+  }
+}
+getPositionCityHandler()
 </script>
 
 <style lang="scss" scoped>
